@@ -11,7 +11,7 @@ class BlazeAPIMonitor {
         };
     }
 
-    // Configurações da sessão Blaze - MANTENDO HEADERS ORIGINAIS
+    
     getHeaders() {
         const cookies = {
             '_gid': 'GA1.2.781127896.1714749072',
@@ -51,7 +51,6 @@ class BlazeAPIMonitor {
         };
     }
 
-    // Buscar resultados recentes da API Blaze - USANDO URL ORIGINAL
     async getBlazeResults() {
         const url = 'https://blaze.bet.br/api/singleplayer-originals/originals/roulette_games/recent/1';
         
@@ -85,7 +84,6 @@ class BlazeAPIMonitor {
         }
     }
 
-    // Formatar saída dos resultados
     formatResults(results) {
         if (!results || results.length === 0) return;
 
@@ -113,7 +111,6 @@ const vermelhos = colors.filter(c => c === '🔴').length;
         console.log('='.repeat(50));
     }
 
-    // Monitoramento contínuo
     async startMonitoring(interval = 3000) {
         if (this.isRunning) {
             console.log('⚠️ Monitoramento já está rodando!');
@@ -147,23 +144,20 @@ const vermelhos = colors.filter(c => c === '🔴').length;
         }
     }
 
-    // Parar monitoramento
     stopMonitoring() {
         this.isRunning = false;
         console.log('🛑 Monitoramento interrompido');
     }
 
-    // Função para obter apenas os números (compatibilidade)
+    // Função para obter apenas os números 
     async getNumbers() {
         const results = await this.getBlazeResults();
         return results.map(r => r.roll);
     }
 }
 
-// Instância global
 const blazeMonitor = new BlazeAPIMonitor();
 
-// Funções de compatibilidade com o código anterior
 async function resultados() {
     return await blazeMonitor.getNumbers();
 }
@@ -187,7 +181,6 @@ if (typeof module !== 'undefined' && module.exports) {
     };
 }
 
-// Auto-iniciar no Node.js
 if (typeof window === 'undefined') {
     console.log('💻 Executando no Node.js...');
     blazeMonitor.startMonitoring();
@@ -195,4 +188,5 @@ if (typeof window === 'undefined') {
     console.log('🌐 Executando no navegador...');
     console.log('📝 Use blazeMonitor.startMonitoring() para iniciar');
     console.log('📝 Use blazeMonitor.stopMonitoring() para parar');
+
 }
